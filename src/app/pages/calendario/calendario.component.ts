@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/angular';
+
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+
 
 @Component({
   selector: 'app-calendario',
@@ -11,7 +16,8 @@ export class CalendarioComponent implements OnInit {
   Events = [];
   calendarOptions!: CalendarOptions;
 
-  constructor() { }
+  constructor() { 
+   }
 
   onDateClick(res: { dateStr: string; }) {
     alert('You clicked on : ' + res.dateStr)
@@ -21,10 +27,16 @@ export class CalendarioComponent implements OnInit {
 
     setTimeout(() => {
       this.calendarOptions = {
-        initialView: 'dayGridMonth',
+        plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
+        selectable: true,
         dateClick: this.onDateClick.bind(this),
-        events: this.Events
-      };
+        events: this.Events,
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+      }; 
     }, 3500);
 
   }

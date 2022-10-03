@@ -42,6 +42,7 @@ FullCalendarModule.registerPlugins([
     HttpClientModule,
     CommonModule,
     FullCalendarModule,
+    HttpClientModule,
   ],
   declarations: [
     AppComponent,
