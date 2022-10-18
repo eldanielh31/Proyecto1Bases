@@ -3,15 +3,15 @@ import { Router } from '@angular/router';
 import { StorageService } from 'src/app/storage.service';
 
 declare interface RouteInfo {
-    path: string;
-    title: string;
-    icon: string;
-    class: string;
+  path: string;
+  title: string;
+  icon: string;
+  class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/user-profile', title: 'User profile',  icon:'ni-single-02 text-yellow', class: '' },
-    { path: '/users/clients', title: 'Clients lists', icon: 'ni-bullet-list-67 text-red', class: '' },
-    { path: '/calendar', title: 'Calendar', icon: 'ni-calendar-grid-58 text-blue', class: '' }
+  { path: '/user-profile', title: 'User profile', icon: 'ni-single-02 text-yellow', class: '' },
+  { path: '/users', title: 'Users lists', icon: 'ni-bullet-list-67 text-red', class: '' },
+  { path: '/calendar', title: 'Calendar', icon: 'ni-calendar-grid-58 text-blue', class: '' }
 ];
 
 @Component({
@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit {
   public isCollapsed = true;
   currentUser: Object = {};
 
-  constructor(private localStorage:StorageService, private router: Router) { }
+  constructor(private localStorage: StorageService, private router: Router) { }
 
   ngOnInit() {
 
@@ -34,7 +34,7 @@ export class SidebarComponent implements OnInit {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;
-   });
+    });
   }
 
   handleLogout() {

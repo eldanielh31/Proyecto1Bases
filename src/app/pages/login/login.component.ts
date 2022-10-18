@@ -42,41 +42,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   //         this.textError = 'Email or password incorrect!'
   //       }
   //     })
-  //   )
-  //   this.backend.getClient(this.email).subscribe(
-  //     (data: Object) => {
-  //       data['admin'] = false;
-
-  //       if (this.password !== data['password']) {
-  //         this.isError = true
-  //         this.textError = 'Email or password incorrect!'
-  //         return
-  //       }
-        
-  //       this.localStorage.saveData('user', JSON.stringify(data))
-  //       this.router.navigate(['/dashboard'])
-  //       return
-  //     }, (error => {
-  //       if(error.status === 404){
-  //         this.isError = true
-  //         this.textError = 'Email or password incorrect!'
-  //       }
-        
-  //     })
-
-  //   )
-
-    
-    
+  //   )  
   //   return
   // }
 
-  handleLogin(){
-    let data = {'email' : this.email, 'isAdmin' : true}
+  handleLogin() {
+    let data = { 'email': this.email, 'isAdmin': true }
     data['firstName'] = 'Daniel'
     this.localStorage.saveData('user', JSON.stringify(data))
-    this.router.navigate(['/dashboard'])
-    return
+    this.router.navigate(['/calendar'])
   }
 
 

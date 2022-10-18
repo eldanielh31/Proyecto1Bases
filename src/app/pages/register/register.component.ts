@@ -1,7 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { BackendService } from 'src/app/backend.service';
-import { StorageService } from 'src/app/storage.service';
 
 @Component({
   selector: 'app-register',

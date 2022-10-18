@@ -11,8 +11,7 @@ import { CalendarioComponent } from 'src/app/pages/calendario/calendario.compone
 export const AdminLayoutRoutes: Routes = [
     { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuardService] },
     { path: 'tables', component: TablesComponent, canActivate: [AuthGuardService] },
-    { path: 'user/:userType/:userId', component: EditUserComponent, canActivate: [AuthGuardService] },
-    { path: 'users/:userType', component: ListUsersComponent, canActivate: [AuthGuardService] },
+    { path: 'user/:userId/:userType', component: EditUserComponent, canActivate: [AuthGuardService] },
+    { path: 'users', component: ListUsersComponent, canActivate: [AuthGuardService] },
     { path: 'calendar', component: CalendarioComponent, canActivate: [AuthGuardService] },
-
 ];

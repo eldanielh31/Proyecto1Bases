@@ -25,81 +25,64 @@ export class EditUserComponent implements OnInit {
   phone: String = null;
   email: String = null;
 
+  users: []
+  clients: []
+
   constructor(private localStorage: StorageService, private backend: BackendService, private route: ActivatedRoute) {
 
   }
 
   ngOnInit() {
 
+    this.users = JSON.parse(this.localStorage.getData('users'));
+    this.clients = JSON.parse(this.localStorage.getData('clients'));
+
     let routeParams = this.route.snapshot.paramMap;
-    let userIdFromRoute = Number(routeParams.get('userId'));
-    let userTypeFromRoute = String(routeParams.get('userType'));
+    let userId = Number(routeParams.get('userId'));
+    let userType = String(routeParams.get('userType'));
 
-    if (userTypeFromRoute === 'client') {
-      this.backend.getClientById(userIdFromRoute).subscribe(
-        response => {
-          response['admin'] = false
-          this.localStorage.saveData('userTemp', JSON.stringify(response))
-        }
-      )
-    }
-    else if (userTypeFromRoute === 'worker') {
-      this.backend.getEmployeById(userIdFromRoute).subscribe(
-        response => {
-          response['admin'] = true
-          this.localStorage.saveData('userTemp', JSON.stringify(response))
-        }
-      )
+    if(userType === 'employee'){
+      this.currentUser = this.users.find(user=> user['Cedula'] == userId)
+    }else{
+      this.currentUser = this.clients.find(user => user['Cedula'] == userId)
     }
 
-    this.currentUser = JSON.parse(this.localStorage.getData('userTemp'));
-    this.isWorker = this.currentUser['admin']
+    console.log(this.currentUser)
 
   }
 
   handleUpdate() {
+    console.log('hola')
 
-    let listData = ['identification', 'password', 'name', 'lastName',
-      'birthDate', 'dateEntered', 'role', 'address', 'cellphoneNumber', 'email']
-    let dataToUpdate = [this.identification, this.password, this.firstName, this.lastName,
-    this.dateBirth, this.dateEntered, this.role, this.address, this.phone, this.email]
+  //   let listData = ['identification', 'password', 'name', 'lastName',
+  //     'birthDate', 'dateEntered', 'role', 'address', 'cellphoneNumber', 'email']
+  //   let dataToUpdate = [this.identification, this.password, this.firstName, this.lastName,
+  //   this.dateBirth, this.dateEntered, this.role, this.address, this.phone, this.email]
 
-    let con = 0;
-    dataToUpdate.forEach(element => {
-      if (element !== null) {
-        this.currentUser[listData[con]] = element
-      }
-      else if (element !== null && element !== '') {
-        this.currentUser[listData[con]] = element
-      }
-      con++;
-    });
+  //   let con = 0;
+  //   dataToUpdate.forEach(element => {
+  //     if (element !== null) {
+  //       this.currentUser[listData[con]] = element
+  //     }
+  //     else if (element !== null && element !== '') {
+  //       this.currentUser[listData[con]] = element
+  //     }
+  //     con++;
+  //   });
 
-    this.localStorage.saveData('user', JSON.stringify(this.currentUser))
+  //   this.localStorage.saveData('user', JSON.stringify(this.currentUser))
 
-    let admin = this.currentUser['admin']
 
-    if (this.currentUser['admin']) {
-      delete this.currentUser['admin']
-      console.log(this.currentUser)
-      this.backend.deleteEmploye(this.currentUser['idNumber']).subscribe(data => {
-        console.log('eliminado correctamente')
-      })
-      this.backend.postEmploye(this.currentUser).subscribe(data => {
-        console.log('Posteado correctamente')
-      })
-    } else {
-      delete this.currentUser['admin']
-      this.backend.deleteClient(this.currentUser['idNumber']).subscribe(data => {
-        console.log('Posteado correctamente')
-      })
-      this.backend.postClient(this.currentUser).subscribe(data => {
-        console.log('Posteado correctamente')
-      })
-    }
+  //   delete this.currentUser['admin']
+  //   console.log(this.currentUser)
+  //   this.backend.deleteEmploye(this.currentUser['idNumber']).subscribe(data => {
+  //     console.log('eliminado correctamente')
+  //   })
+  //   this.backend.postEmploye(this.currentUser).subscribe(data => {
+  //     console.log('Posteado correctamente')
+  //   })
 
-    this.currentUser['admin'] = admin
-    this.isSuccess = true
+  //   this.isSuccess = true
 
   }
 

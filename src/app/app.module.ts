@@ -49,8 +49,8 @@ FullCalendarModule.registerPlugins([
     AdminLayoutComponent,
     AuthLayoutComponent,
     EditUserComponent,
-    ListUsersComponent,
-    CalendarioComponent
+    CalendarioComponent,
+    ListUsersComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

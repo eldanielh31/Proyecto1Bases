@@ -6,46 +6,46 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 })
 export class BackendService {
 
-  url : String = 'http://localhost:5022/'
+  url : String = 'http://localhost:5000/api/'
 
   constructor(private httpClient: HttpClient) {
   }
 
   public getEmployes() {
-    return this.httpClient.get(`${this.url}employees`)
+    return this.httpClient.get(`${this.url}trabajadores`)
   }
   public getClients() {
-    return this.httpClient.get(`${this.url}clients`)
+    return this.httpClient.get(`${this.url}clientes`)
   }
   public getEmploye( email: String ){
-    return this.httpClient.get(`${this.url}employees/email/${email}/`)
+    return this.httpClient.get(`${this.url}trabajadores/email/${email}/`)
   }
   public getEmployeById(id: number) {
-    return this.httpClient.get(`${this.url}employees/id/${id}/`)
+    return this.httpClient.get(`${this.url}trabajadores/id/${id}/`)
   }
 
   public getClient(email: String) {
-    return this.httpClient.get(`${this.url}clients/email/${email}/`)
+    return this.httpClient.get(`${this.url}clientes/email/${email}/`)
   }
 
   public getClientById(id: number) {
-    return this.httpClient.get(`${this.url}clients/id/${id}/`)
+    return this.httpClient.get(`${this.url}clientes/id/${id}/`)
   }
 
   public deleteEmploye( id : number ){
-    return this.httpClient.delete(`${this.url}employees/id/${id}`)
+    return this.httpClient.delete(`${this.url}trabajadores/id/${id}`)
   }
 
   public postEmploye( user: Object ){
-    return this.httpClient.post(`${this.url}employees/new`, user)
+    return this.httpClient.post(`${this.url}trabajadores/new`, user)
   }
 
   public deleteClient(id: number) {
-    return this.httpClient.delete(`${this.url}clients/id/${id}`)
+    return this.httpClient.delete(`${this.url}clientes/id/${id}`)
   }
 
   public postClient(user: Object) {
-    return this.httpClient.post(`${this.url}clients/new`, user)
+    return this.httpClient.post(`${this.url}clientes/new`, user)
   }
 
   public getAppointments() {

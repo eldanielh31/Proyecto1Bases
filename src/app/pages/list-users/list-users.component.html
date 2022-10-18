@@ -12,7 +12,7 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header border-0">
-                    <h3 class="mb-0">List</h3>
+                    <h3 class="mb-0">List employees</h3>
                 </div>
                 <div class="table-responsive">
                     <table class="table align-items-center table-flush">
@@ -26,19 +26,57 @@
                         <tbody>
                             <tr *ngFor="let user of users">
                                 <td>
-                                    {{user.identification}}
+                                    {{user.Cedula}}
                                 </td>
                                 <td>
-                                    {{user.name}} {{user.lastName}}
+                                    {{user.Nombre}} {{user.Apellido1}}
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-info" (click)="handleEdit(user.idNumber)" > Editar </button>
+                                    <button type="button" class="btn btn-info" (click)="handleEdit(user.Cedula)" > Editar </button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
+
+
+<div class="col">
+    <div class="card shadow">
+        <div class="card-header border-0">
+            <h3 class="mb-0">List clients</h3>
+        </div>
+        <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Identification</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of clients">
+                        <td>
+                            {{user.Cedula}}
+                        </td>
+                        <td>
+                            {{user.Nombre}} {{user.Apellido1}}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-info" (click)="handleEditClient(user.Cedula)"> Editar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
     </div>
 </div>

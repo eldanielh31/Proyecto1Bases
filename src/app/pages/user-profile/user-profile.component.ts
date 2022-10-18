@@ -27,56 +27,51 @@ export class UserProfileComponent implements OnInit {
   constructor(private localStorage: StorageService, private backend: BackendService) { 
 
     this.currentUser = JSON.parse(this.localStorage.getData('user'));
-    this.isWorker = this.currentUser['admin']
 
   }
 
   ngOnInit() {
+
   }
 
   handleUpdate(){
 
-    let listData = ['identification', 'password', 'name', 'lastName',
-      'birthDate', 'dateEntered', 'role', 'address', 'cellphoneNumber', 'email']
-    let dataToUpdate = [this.identification ,this.password, this.firstName, this.lastName,
-      this.dateBirth, this.dateEntered, this.role, this.address, this.phone, this.email]
-    
-    let con = 0;
-    dataToUpdate.forEach(element => {
-      if (element !== null){
-        this.currentUser[listData[con]] = element
+    this.backend.getEmployes().subscribe(
+      response => {
+        console.log(response)
+        // this.localStorage.saveData('userTemp', JSON.stringify(response))
       }
-      else if (element !== null && element !== ''){
-        this.currentUser[listData[con]] = element
-      }
-      con++;
-    });
+    )
 
-    this.localStorage.saveData('user', JSON.stringify(this.currentUser))
+    //   let listData = ['identification', 'password', 'name', 'lastName',
+    //     'birthDate', 'dateEntered', 'role', 'address', 'cellphoneNumber', 'email']
+    //   let dataToUpdate = [this.identification, this.password, this.firstName, this.lastName,
+    //   this.dateBirth, this.dateEntered, this.role, this.address, this.phone, this.email]
 
-    let admin = this.currentUser['admin']
+    //   let con = 0;
+    //   dataToUpdate.forEach(element => {
+    //     if (element !== null) {
+    //       this.currentUser[listData[con]] = element
+    //     }
+    //     else if (element !== null && element !== '') {
+    //       this.currentUser[listData[con]] = element
+    //     }
+    //     con++;
+    //   });
 
-    if(this.currentUser['admin']){
-      delete this.currentUser['admin']
-      console.log(this.currentUser)
-      this.backend.deleteEmploye(this.currentUser['idNumber']).subscribe(data =>{
-        console.log('eliminado correctamente')
-      })
-      this.backend.postEmploye(this.currentUser).subscribe(data => {
-        console.log('Posteado correctamente')
-      })
-    }else{
-      delete this.currentUser['admin']
-      this.backend.deleteClient(this.currentUser['idNumber']).subscribe(data => {
-        console.log('Posteado correctamente')
-      })
-      this.backend.postClient(this.currentUser).subscribe(data => {
-        console.log('Posteado correctamente')
-      })
-    }
+    //   this.localStorage.saveData('user', JSON.stringify(this.currentUser))
 
-    this.currentUser['admin'] = admin
-    this.isSuccess = true
+
+    //   delete this.currentUser['admin']
+    //   console.log(this.currentUser)
+    //   this.backend.deleteEmploye(this.currentUser['idNumber']).subscribe(data => {
+    //     console.log('eliminado correctamente')
+    //   })
+    //   this.backend.postEmploye(this.currentUser).subscribe(data => {
+    //     console.log('Posteado correctamente')
+    //   })
+
+    //   this.isSuccess = true
 
   }
 

@@ -17,44 +17,41 @@ interface User {
 })
 export class ListUsersComponent implements OnInit {
 
-  users:User[] = [];
+  users: User[] = [];
+  clients: User[] = [];
   userType: string;
 
-  constructor(private backend: BackendService, private route: ActivatedRoute, private router: Router, private localStorage: StorageService) {
+  constructor(private backend: BackendService, private router: Router, private localStorage: StorageService) {
 
-   }
+
+
+  }
 
   ngOnInit(): void {
 
-    let routeParams = this.route.snapshot.paramMap;
-    this.userType = String(routeParams.get('userType'));
+    this.backend.getEmployes().subscribe(
+      response => {
+        this.localStorage.saveData('users', JSON.stringify(response))
+      }
+    )
 
-    if (this.userType === 'clients') {
-      this.backend.getClients().subscribe(
-        response => {
-          this.localStorage.saveData('users', JSON.stringify(response))
-        }
-      )
-    }
-    else if (this.userType === 'workers') {
-      this.backend.getEmployes().subscribe(
-        response => {
-          this.localStorage.saveData('users', JSON.stringify(response))
-        }
-      )
-    }
+    this.backend.getClients().subscribe(
+      response => {
+        this.localStorage.saveData('clients', JSON.stringify(response))
+      }
+    )
+
+    this.clients = JSON.parse(this.localStorage.getData('clients'))
 
     this.users = JSON.parse(this.localStorage.getData('users'))
 
   }
 
-  handleEdit( id : number){
-    if(this.userType === 'clients'){
-      this.router.navigate([`/user/client/${id}`])
-    }
-    else if (this.userType === 'workers') {
-      this.router.navigate([`/user/worker/${id}`])
-    }
+  handleEdit(id: number) {
+    this.router.navigate([`/user/${id}/employee`])
+  }
+  handleEditClient(id: number) {
+    this.router.navigate([`/user/${id}/client`])
   }
 
 }
