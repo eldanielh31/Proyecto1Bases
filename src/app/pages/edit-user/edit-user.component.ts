@@ -42,9 +42,9 @@ export class EditUserComponent implements OnInit {
     let userType = String(routeParams.get('userType'));
 
     if(userType === 'employee'){
-      this.currentUser = this.users.find(user=> user['Cedula'] == userId)
+      this.currentUser = this.users.find(user=> user['cedula'] == userId)
     }else{
-      this.currentUser = this.clients.find(user => user['Cedula'] == userId)
+      this.currentUser = this.clients.find(user => user['cedula'] == userId)
     }
 
     console.log(this.currentUser)

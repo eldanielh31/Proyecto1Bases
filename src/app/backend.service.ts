@@ -11,6 +11,15 @@ export class BackendService {
   constructor(private httpClient: HttpClient) {
   }
 
+  public getQuotes() {
+    return this.httpClient.get(`${this.url}citas`)
+  }
+  public getServices() {
+    return this.httpClient.get(`${this.url}lavados`)
+  }
+  public getStores() {
+    return this.httpClient.get(`${this.url}sucursales`)
+  }
   public getEmployes() {
     return this.httpClient.get(`${this.url}trabajadores`)
   }

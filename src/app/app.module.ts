@@ -22,6 +22,10 @@ import { CalendarioComponent } from './pages/calendario/calendario.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import { StoresComponent } from './pages/stores/stores.component';
+import { ProvidersComponent } from './pages/providers/providers.component';
+import { ProductsComponent } from './pages/products/products.component';
+import { WashedComponent } from './pages/washed/washed.component';
 
 FullCalendarModule.registerPlugins([
   interactionPlugin,
@@ -50,7 +54,11 @@ FullCalendarModule.registerPlugins([
     AuthLayoutComponent,
     EditUserComponent,
     CalendarioComponent,
-    ListUsersComponent
+    ListUsersComponent,
+    StoresComponent,
+    ProvidersComponent,
+    ProductsComponent,
+    WashedComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

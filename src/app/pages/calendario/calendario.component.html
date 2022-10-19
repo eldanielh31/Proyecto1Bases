@@ -24,10 +24,14 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">Options</label>
                     </div>
+                    <select [(ngModel)]="selectedStore" class="custom-select" id="inputGroupSelect01">
+                        <option [ngValue]="null" disabled>Select store</option>
+                        <option *ngFor="let service of sucursales" [ngValue]="service.suc_id">{{service.suc_nombre}}</option>
+                    </select>
                     <select [(ngModel)]="selectedService" class="custom-select" id="inputGroupSelect01">
                         <option [ngValue]="null" disabled>Select service</option>
-                        <option *ngFor="let service of services" [ngValue]="service.id">{{service.name}}</option>
-                    </select>
+                        <option *ngFor="let service of services_lavacar" [ngValue]="service.lavado_id">{{service.lavado_nombre}}</option>
+                    </select> 
                 </div>
                 
                 <button type="button" class="btn btn-dark" (click)="handleSave()">Ok</button>

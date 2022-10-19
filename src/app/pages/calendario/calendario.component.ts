@@ -5,6 +5,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { StorageService } from 'src/app/storage.service';
+import { BackendService } from 'src/app/backend.service';
 
 
 declare let $: any;
@@ -36,14 +37,11 @@ function formatDate(date) {
 })
 export class CalendarioComponent implements OnInit {
 
-  services = [
-    { id: 1, name: "Lavado" },
-    { id: 2, name: "Lavado-Encerado" },
-    { id: 3, name: "Cambio Aceite" },
-    { id: 4, name: "Revision" },
-    { id: 5, name: "Mecanica" }
-  ];
+  services_lavacar : []
+  sucursales : []
+  quotes : []
 
+  selectedStore: String;
   selectedService: String;
 
   Events = [
@@ -62,9 +60,34 @@ export class CalendarioComponent implements OnInit {
 
   user: any;
 
-  constructor(private localSotage: StorageService) {
+  constructor(private localSotage: StorageService, private backend: BackendService) {
 
-    this.user = JSON.parse(localSotage.getData('user'));
+    this.user = JSON.parse(this.localSotage.getData('user'));
+
+    //Asignar variable local Servicios lavado
+    this.backend.getServices().subscribe(
+      response => {
+        this.localSotage.saveData('lavados', JSON.stringify(response))
+      }
+    )
+    this.services_lavacar = JSON.parse(this.localSotage.getData('lavados'))
+
+    //Asignar variable local Sucursales
+    this.backend.getStores().subscribe(
+      response => {
+        this.localSotage.saveData('stores', JSON.stringify(response))
+      }
+    )
+    this.sucursales = JSON.parse(this.localSotage.getData('stores'))
+
+    //Asignar variable local citas
+    this.backend.getQuotes().subscribe(
+      response => {
+        this.localSotage.saveData('quotes', JSON.stringify(response))
+      }
+    )
+    this.quotes = JSON.parse(this.localSotage.getData('quotes'))
+
 
   }
 

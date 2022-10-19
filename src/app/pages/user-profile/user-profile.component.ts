@@ -36,13 +36,6 @@ export class UserProfileComponent implements OnInit {
 
   handleUpdate(){
 
-    this.backend.getEmployes().subscribe(
-      response => {
-        console.log(response)
-        // this.localStorage.saveData('userTemp', JSON.stringify(response))
-      }
-    )
-
     //   let listData = ['identification', 'password', 'name', 'lastName',
     //     'birthDate', 'dateEntered', 'role', 'address', 'cellphoneNumber', 'email']
     //   let dataToUpdate = [this.identification, this.password, this.firstName, this.lastName,

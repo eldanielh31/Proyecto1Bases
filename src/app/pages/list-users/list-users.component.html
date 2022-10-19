@@ -26,13 +26,13 @@
                         <tbody>
                             <tr *ngFor="let user of users">
                                 <td>
-                                    {{user.Cedula}}
+                                    {{user.cedula}}
                                 </td>
                                 <td>
-                                    {{user.Nombre}} {{user.Apellido1}}
+                                    {{user.nombre}} {{user.apellido1}}
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-info" (click)="handleEdit(user.Cedula)" > Editar </button>
+                                    <button type="button" class="btn btn-info" (click)="handleEdit(user.cedula)" > Editar </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -60,13 +60,13 @@
                 <tbody>
                     <tr *ngFor="let user of clients">
                         <td>
-                            {{user.Cedula}}
+                            {{user.cedula}}
                         </td>
                         <td>
-                            {{user.Nombre}} {{user.Apellido1}}
+                            {{user.cliente_nombre}} {{user.apellido1}}
                         </td>
                         <td>
-                            <button type="button" class="btn btn-info" (click)="handleEditClient(user.Cedula)"> Editar
+                            <button type="button" class="btn btn-info" (click)="handleEditClient(user.cedula)"> Editar
                             </button>
                         </td>
                     </tr>
