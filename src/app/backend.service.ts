@@ -11,6 +11,9 @@ export class BackendService {
   constructor(private httpClient: HttpClient) {
   }
 
+  public postAppoiment(appoinment:any){
+    return this.httpClient.post(`${this.url}citas`, appoinment)
+  }
   public putEmploye(user: any){
     return this.httpClient.put(`${this.url}trabajadores`, user)
   }
@@ -26,7 +29,7 @@ export class BackendService {
   public getProducts() {
     return this.httpClient.get(`${this.url}productos`)
   }
-  public getQuotes() {
+  public getAppointments() {
     return this.httpClient.get(`${this.url}citas`)
   }
   public getServices() {
@@ -68,11 +71,6 @@ export class BackendService {
   public postClient(user: Object) {
     return this.httpClient.post(`${this.url}clientes/new`, user)
   }
-
-  public getAppointments() {
-    return this.httpClient.get<any>(`${this.url}appointments`)
-  }
-
   public getAppointmentsByIdUser(idUser: number) {
     return this.httpClient.get(`${this.url}appointments/client/${idUser}`)
   }

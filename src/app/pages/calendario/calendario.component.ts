@@ -40,7 +40,7 @@ export class CalendarioComponent implements OnInit {
 
   services_lavacar: []
   sucursales: []
-  quotes: []
+  appoinments: []
   snacks = ''
 
   identificationClient = ''
@@ -77,21 +77,33 @@ export class CalendarioComponent implements OnInit {
     this.sucursales = JSON.parse(this.localSotage.getData('stores'))
 
     //Asignar variable local citas
-    this.backend.getQuotes().subscribe(
+    this.backend.getAppointments().subscribe(
       response => {
-        this.localSotage.saveData('quotes', JSON.stringify(response))
+        this.localSotage.saveData('appoinments', JSON.stringify(response))
       }
     )
-    this.quotes = JSON.parse(this.localSotage.getData('quotes'))
+    this.appoinments = JSON.parse(this.localSotage.getData('appoinments'))
 
+    this.appoinments.map(a=>{
+      let temp = {
+        id: a['cita_id'],
+        start: a['date'],
+        title: a['cedula'],
+        suc_id: a['suc_id'],
+        cedula: a['cedula'],
+        lavado_id: a['lavado_id'],
+        trabajador_id: a['trabajador_id']
+      }
+
+      this.Events.push(temp);
+
+    })
 
   }
 
 
   handleSave() {
     if (this.selectedService) {
-      console.log(this.tempEvent)
-      console.log(this.selectedService)
       this.tempEvent['id'] = this.identificationClient,
         this.tempEvent['title'] = this.identificationClient,
         this.tempEvent['trabajador_id'] = this.user.trabajador_id,
@@ -99,24 +111,38 @@ export class CalendarioComponent implements OnInit {
         this.tempEvent['cedula'] = this.identificationClient,
         this.tempEvent['lavado_id'] = this.selectedService
       this.Events.push(this.tempEvent);
+
+      this.backend.postAppoiment(this.tempEvent).subscribe(res=>console.log('Agragado correctamente'))
+
       $("#myModal").modal("hide");
-      console.log(this.tempEvent)
     } else {
       alert('Debe seleccionar un servicio')
     }
   }
 
   handleFacturation() {
-    this.invoice.invoice.products = [{ name: 'Faja', price: 123, qty: 3 }, { name: 'Free Snacks', price: 0, qty: 5 }]
-    this.invoice.invoice.customerName = 'Daniel'
-    this.invoice.invoice.contactNo = 123
-    this.invoice.invoice.email = 'danbg31@gmail.com'
-    this.invoice.invoice.address = 'cartago'
-    console.log(this.snacks)
+    
+    let clients = JSON.parse(this.localSotage.getData('clients'));
+    let client = clients.find(e => Number(e['cedula']) === Number(this.tempEvent['cedula']))
+    let store = this.sucursales.find(e => Number(e['suc_id']) === Number(this.tempEvent['suc_id']))
+    let wash = this.services_lavacar.find(e => Number(e['lavado_id']) === Number(this.tempEvent['lavado_id']))
+
+    this.invoice.invoice.products = 
+    [
+      { name: wash['lavado_nombre'], price: Number(wash['precio']), qty: 1 }, 
+      { name: 'Free Snacks', price: 0, qty: 5 },
+      { name: 'Snacks', price : 500, qty: Number(this.snacks)}
+    ]
+    this.invoice.invoice.customerName = client?.cliente_nombre
+    this.invoice.invoice.contactNo = client?.cedula
+    this.invoice.invoice.email = client?.email
+    this.invoice.invoice.address = store['provincia']
+    
     this.invoice.generatePDF()
   }
 
   eventClick(res: any) {
+    this.tempEvent = this.Events.find(e => Number(e.id) === Number(res.event.id))
     $("#myModal2").modal("show");
     $(".modal-title").text("Facturation");
   }
@@ -132,6 +158,7 @@ export class CalendarioComponent implements OnInit {
 
       this.tempEvent = {
         start: date,
+        date: date
       }
 
     }
