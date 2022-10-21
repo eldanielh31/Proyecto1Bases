@@ -26,15 +26,52 @@
                     </div>
                     <select [(ngModel)]="selectedStore" class="custom-select" id="inputGroupSelect01">
                         <option [ngValue]="null" disabled>Select store</option>
-                        <option *ngFor="let service of sucursales" [ngValue]="service.suc_id">{{service.suc_nombre}}</option>
+                        <option *ngFor="let service of sucursales" [ngValue]="service.suc_id">{{service.suc_nombre}}
+                        </option>
                     </select>
                     <select [(ngModel)]="selectedService" class="custom-select" id="inputGroupSelect01">
                         <option [ngValue]="null" disabled>Select service</option>
-                        <option *ngFor="let service of services_lavacar" [ngValue]="service.lavado_id">{{service.lavado_nombre}}</option>
-                    </select> 
+                        <option *ngFor="let service of services_lavacar" [ngValue]="service.lavado_id">
+                            {{service.lavado_nombre}}</option>
+                    </select>
                 </div>
-                
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Client Identification:</span>
+                    </div>
+                    <input [(ngModel)]="identificationClient" type="text" class="form-control" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                </div>
+
                 <button type="button" class="btn btn-dark" (click)="handleSave()">Ok</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal-->
+<div class="modal" id="myModal2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title align-center"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body text-center">
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Snacks: </span>
+                    </div>
+                    <input [(ngModel)]="snacks" type="number" class="form-control" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                </div>
+
+                <button type="button" class="btn btn-dark" (click)="handleFacturation()">Ok</button>
 
             </div>
         </div>

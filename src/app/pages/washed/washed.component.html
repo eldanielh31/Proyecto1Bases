@@ -1,1 +1,123 @@
-<p>washed works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+            <!-- Card stats -->
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">List washed</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Cost</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col">Points</th>
+                                <th scope="col">Exchange</th>
+                                <th scope="col">Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Ciclo para ver productos en lista -->
+                            <tr *ngFor="let w of wash">
+                                <td>
+                                    {{w.lavado_id}}
+                                </td>
+                                <td>
+                                    {{w.lavado_nombre}}
+                                </td>
+                                <td>
+                                    {{w.costo}}
+                                </td>
+                                <td>
+                                    {{w.precio}}
+                                </td>
+                                <td>
+                                    {{w.duracion}}
+                                </td>
+                                <td>
+                                    {{w.puntos_otorga}}
+                                </td>
+                                <td>
+                                    {{w.puntos_redimir}}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-info" (click)="handleEdit()"> Editar
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!--Modal-->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title align-center"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body text-center">
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Cost: </span>
+                    </div>
+                    <input [(ngModel)]="newCost" type="text" class="form-control" aria-label="contactnumber">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Price: </span>
+                    </div>
+                    <input [(ngModel)]="newPrice" type="text" class="form-control" aria-label="contactnumber">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Duration: </span>
+                    </div>
+                    <input [(ngModel)]="newDuration" type="text" class="form-control" aria-label="contactnumber">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Points: </span>
+                    </div>
+                    <input [(ngModel)]="newPoints" type="text" class="form-control" aria-label="contactnumber">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Exchange: </span>
+                    </div>
+                    <input [(ngModel)]="newExchange" type="text" class="form-control" aria-label="contactnumber">
+                </div>
+
+                <button type="button" class="btn btn-dark" (click)="handleSave()">Ok</button>
+
+            </div>
+        </div>
+    </div>
+</div>

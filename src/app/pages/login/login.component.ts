@@ -22,36 +22,34 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  // handleLogin() {
-  //   this.backend.getEmploye(this.email).subscribe(
-  //     (data : Object) => {
-  //       data['admin'] = true;
-        
-  //       if(this.password !== data['password']){
-  //         this.isError = true
-  //         this.textError = 'Email or password incorrect!'
-  //         return
-  //       }
-        
-  //       this.localStorage.saveData('user', JSON.stringify(data))
-  //       this.router.navigate(['/dashboard'])
-  //       return
-  //     }, (error => {
-  //       if (error.status === 404) {
-  //         this.isError = true
-  //         this.textError = 'Email or password incorrect!'
-  //       }
-  //     })
-  //   )  
-  //   return
-  // }
-
   handleLogin() {
-    let data = { 'email': this.email, 'isAdmin': true }
-    data['firstName'] = 'Daniel'
-    this.localStorage.saveData('user', JSON.stringify(data))
-    this.router.navigate(['/calendar'])
+    this.backend.getEmployebyEmail(this.email).subscribe(
+      (data : Object) => {
+        if (this.password !== data[0]['password_trab']){
+          this.isError = true
+          this.textError = 'Email or password incorrect!'
+          return
+        }
+        
+        this.localStorage.saveData('user', JSON.stringify(data[0]))
+        this.router.navigate(['/calendar'])
+        return
+      }, (error => {
+        if (error.status === 404) {
+          this.isError = true
+          this.textError = 'Email or password incorrect!'
+        }
+      })
+    )  
+    return
   }
+
+  // handleLogin() {
+  //   let data = { 'email': this.email, 'isAdmin': true }
+  //   data['firstName'] = 'Daniel'
+  //   this.localStorage.saveData('user', JSON.stringify(data))
+  //   this.router.navigate(['/calendar'])
+  // }
 
 
 }

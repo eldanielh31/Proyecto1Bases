@@ -1,1 +1,109 @@
-<p>providers works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+            <!-- Card stats -->
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">List provider</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Identification</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Contact name</th>
+                                <th scope="col">Contact number</th>
+                                <th scope="col">Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Ciclo para ver productos en lista -->
+                            <tr *ngFor="let provider of providers">
+                                <td>
+                                    {{provider.proveedor_id}}
+                                </td>
+                                <td>
+                                    {{provider.proveedor_nombre}} {{provider.proveedor_apellido1}}
+                                </td>
+                                <td>
+                                    {{provider.ced_juridica}}
+                                </td>
+                                <td>
+                                    {{provider.direccion}}
+                                </td>
+                                <td>
+                                    {{provider.email}}
+                                </td>
+                                <td>
+                                    {{provider.contacto_nombre}}
+                                </td>
+                                <td>
+                                    {{provider.contacto_numero}}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-info" (click)="handleEdit()"> Editar
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!--Modal-->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title align-center"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body text-center">
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Email: </span>
+                    </div>
+                    <input [(ngModel)]="newEmail" type="text" class="form-control" aria-label="email">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Contact Name: </span>
+                    </div>
+                    <input [(ngModel)]="newContactName" type="text" class="form-control" aria-label="contactname">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Contact Number: </span>
+                    </div>
+                    <input [(ngModel)]="newContactPhone" type="text" class="form-control" aria-label="contactnumber">
+                </div>
+
+                <button type="button" class="btn btn-dark" (click)="handleSave()">Ok</button>
+
+            </div>
+        </div>
+    </div>
+</div>

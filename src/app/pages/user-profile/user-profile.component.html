@@ -23,16 +23,11 @@
             <div class="h5 font-weight-300">
               <i class="ni location_pin mr-2"></i>{{currentUser['cedula']}}
             </div>
-            <div class="h5 font-weight-300">
-              <i class="ni location_pin mr-2"></i>{{currentUser['location']}}
-            </div>
             
             <div class="h5 mt-4">
               <i class="ni business_briefcase-24 mr-2"></i>{{currentUser['rol']}}
             </div>
-            <div>
-              <i class="ni education_hat mr-2"></i>{{currentUser['branch']}}
-            </div>
+
           </div>
         </div>
       </div>
@@ -59,8 +54,8 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-identification">Identification</label>
-                    <input type="text" [(ngModel)]="identification" id="input-identification" class="form-control form-control-alternative" placeholder= 'Identification'>
+                    <label class="form-control-label" for="input-identification">Name</label>
+                    <input type="text" [(ngModel)]="name" id="input-identification" class="form-control form-control-alternative" placeholder= 'Identification'>
                   </div>
                 </div>
                 <div class="col-lg-6">
@@ -73,29 +68,17 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-first-name">First name</label>
+                    <label class="form-control-label" for="input-first-name">Firs last name</label>
                     <input type="text" [(ngModel)]="firstName" id="input-first-name" class="form-control form-control-alternative" placeholder="First name">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-last-name">Last name</label>
+                    <label class="form-control-label" for="input-last-name">Second last name</label>
                     <input type="text" [(ngModel)]="lastName" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name">
                   </div>
                 </div>
-                <div class="col-lg-6" *ngIf="isWorker">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-dateentered">Date Entered</label>
-                    <input type="text" [(ngModel)]="dateEntered" id="input-dateentered" class="form-control form-control-alternative" placeholder="(DD/MM/YYYY)">
-                  </div>
-                </div>
-                <div class="col-lg-6" *ngIf="isWorker">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-datebirth">DateBirth</label>
-                    <input type="text" [(ngModel)]="dateBirth" id="input-datebirth" class="form-control form-control-alternative" placeholder="(DD/MM/YYYY)">
-                  </div>
-                </div>
-                <div class="col-lg-6" *ngIf="isWorker">
+                <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-role">Role</label>
                     <input type="text" [(ngModel)]="role" id="input-role" class="form-control form-control-alternative" placeholder="Role">
@@ -108,18 +91,10 @@
             <h6 class="heading-small text-muted mb-4">Contact information</h6>
             <div class="pl-lg-4">
               <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-address">Address</label>
-                    <input id="input-address" [(ngModel)]="address" class="form-control form-control-alternative" placeholder="Home Address" value="Address" type="text">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
                 <div class="col-lg-4">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-city">Phone</label>
-                    <input type="text" [(ngModel)]="phone" id="input-city" class="form-control form-control-alternative" placeholder="Phone">
+                    <label class="form-control-label" for="input-city">Payment</label>
+                    <input type="text" [(ngModel)]="payment" id="input-city" class="form-control form-control-alternative" placeholder="Payment">
                   </div>
                 </div>
                 <div class="col-lg-4">

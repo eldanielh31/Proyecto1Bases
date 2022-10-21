@@ -11,6 +11,21 @@ export class BackendService {
   constructor(private httpClient: HttpClient) {
   }
 
+  public putEmploye(user: any){
+    return this.httpClient.put(`${this.url}trabajadores`, user)
+  }
+  public getEmployebyEmail(email: string) {
+    return this.httpClient.get(`${this.url}trabajadores/email/${email}`)
+  }
+  public getWash() {
+    return this.httpClient.get(`${this.url}lavados`)
+  }
+  public getProviders() {
+    return this.httpClient.get(`${this.url}proveedores`)
+  }
+  public getProducts() {
+    return this.httpClient.get(`${this.url}productos`)
+  }
   public getQuotes() {
     return this.httpClient.get(`${this.url}citas`)
   }
@@ -25,9 +40,6 @@ export class BackendService {
   }
   public getClients() {
     return this.httpClient.get(`${this.url}clientes`)
-  }
-  public getEmploye( email: String ){
-    return this.httpClient.get(`${this.url}trabajadores/email/${email}/`)
   }
   public getEmployeById(id: number) {
     return this.httpClient.get(`${this.url}trabajadores/id/${id}/`)

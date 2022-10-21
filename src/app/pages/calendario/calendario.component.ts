@@ -6,6 +6,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { StorageService } from 'src/app/storage.service';
 import { BackendService } from 'src/app/backend.service';
+import { InvoiceService } from 'src/app/invoice.service';
 
 
 declare let $: any;
@@ -37,22 +38,17 @@ function formatDate(date) {
 })
 export class CalendarioComponent implements OnInit {
 
-  services_lavacar : []
-  sucursales : []
-  quotes : []
+  services_lavacar: []
+  sucursales: []
+  quotes: []
+  snacks = ''
+
+  identificationClient = ''
 
   selectedStore: String;
   selectedService: String;
 
-  Events = [
-
-    {
-      id: 'a',
-      title: 'DaniGames',
-      start: '2022-10-04'
-    }
-
-  ];
+  Events = [];
 
   tempEvent: any;
 
@@ -60,7 +56,7 @@ export class CalendarioComponent implements OnInit {
 
   user: any;
 
-  constructor(private localSotage: StorageService, private backend: BackendService) {
+  constructor(private invoice: InvoiceService, private localSotage: StorageService, private backend: BackendService) {
 
     this.user = JSON.parse(this.localSotage.getData('user'));
 
@@ -96,14 +92,34 @@ export class CalendarioComponent implements OnInit {
     if (this.selectedService) {
       console.log(this.tempEvent)
       console.log(this.selectedService)
-      this.tempEvent['idService'] = this.selectedService
+      this.tempEvent['id'] = this.identificationClient,
+        this.tempEvent['title'] = this.identificationClient,
+        this.tempEvent['trabajador_id'] = this.user.trabajador_id,
+        this.tempEvent['suc_id'] = this.selectedStore,
+        this.tempEvent['cedula'] = this.identificationClient,
+        this.tempEvent['lavado_id'] = this.selectedService
       this.Events.push(this.tempEvent);
       $("#myModal").modal("hide");
-    }else{
+      console.log(this.tempEvent)
+    } else {
       alert('Debe seleccionar un servicio')
     }
   }
 
+  handleFacturation() {
+    this.invoice.invoice.products = [{ name: 'Faja', price: 123, qty: 3 }, { name: 'Free Snacks', price: 0, qty: 5 }]
+    this.invoice.invoice.customerName = 'Daniel'
+    this.invoice.invoice.contactNo = 123
+    this.invoice.invoice.email = 'danbg31@gmail.com'
+    this.invoice.invoice.address = 'cartago'
+    console.log(this.snacks)
+    this.invoice.generatePDF()
+  }
+
+  eventClick(res: any) {
+    $("#myModal2").modal("show");
+    $(".modal-title").text("Facturation");
+  }
 
   onDateClick(res: any) {
     if (!res.allDay) {
@@ -115,15 +131,10 @@ export class CalendarioComponent implements OnInit {
       $(".modal-title").text("Add Event at : " + date);
 
       this.tempEvent = {
-        id: String(this.user.email),
-        title: this.user.firstName,
-        start: date
+        start: date,
       }
 
     }
-
-
-
 
   }
 
@@ -133,8 +144,9 @@ export class CalendarioComponent implements OnInit {
       this.calendarOptions = {
         plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
         selectable: true,
+        eventClick: this.eventClick.bind(this),
         dateClick: this.onDateClick.bind(this),
-        eventChange: ()=>{console.log(this.Events)},
+        eventChange: () => { console.log(this.Events) },
         events: this.Events,
         editable: true,
         headerToolbar: {

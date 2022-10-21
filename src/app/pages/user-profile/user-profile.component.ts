@@ -12,21 +12,18 @@ export class UserProfileComponent implements OnInit {
   isSuccess: Boolean = false
 
   currentUser : Object = {};
-  isWorker : Boolean;
-  identification: String = null;
+  name: String = null;
   password: String = null;
   firstName: String = null;
   lastName: String = null;
-  dateEntered: String = null;
-  dateBirth: String = null;
   role: String = null;
-  address: String = null;
-  phone: String = null;
   email: String = null;
+  payment: String = null;
 
   constructor(private localStorage: StorageService, private backend: BackendService) { 
 
     this.currentUser = JSON.parse(this.localStorage.getData('user'));
+    console.log(this.currentUser)
 
   }
 
@@ -36,35 +33,28 @@ export class UserProfileComponent implements OnInit {
 
   handleUpdate(){
 
-    //   let listData = ['identification', 'password', 'name', 'lastName',
-    //     'birthDate', 'dateEntered', 'role', 'address', 'cellphoneNumber', 'email']
-    //   let dataToUpdate = [this.identification, this.password, this.firstName, this.lastName,
-    //   this.dateBirth, this.dateEntered, this.role, this.address, this.phone, this.email]
+    let listData = ['nombre', 'password_trab', 'apellido1', 'apellido2','role', 'rol', 'email', 'email', 'pago']
+      let dataToUpdate = [this.name,this.password, this.firstName, this.lastName, this.role, this.email, this.payment]
 
-    //   let con = 0;
-    //   dataToUpdate.forEach(element => {
-    //     if (element !== null) {
-    //       this.currentUser[listData[con]] = element
-    //     }
-    //     else if (element !== null && element !== '') {
-    //       this.currentUser[listData[con]] = element
-    //     }
-    //     con++;
-    //   });
+      let con = 0;
+      dataToUpdate.forEach(element => {
+        if (element !== null) {
+          this.currentUser[listData[con]] = element
+        }
+        else if (element !== null && element !== '') {
+          this.currentUser[listData[con]] = element
+        }
+        con++;
+      });
 
-    //   this.localStorage.saveData('user', JSON.stringify(this.currentUser))
+      console.log(this.currentUser)
+      this.backend.putEmploye(this.currentUser).subscribe(data => {
+        console.log('Posteado correctamente')
+      })
 
+    this.localStorage.saveData('user', JSON.stringify(this.currentUser))
 
-    //   delete this.currentUser['admin']
-    //   console.log(this.currentUser)
-    //   this.backend.deleteEmploye(this.currentUser['idNumber']).subscribe(data => {
-    //     console.log('eliminado correctamente')
-    //   })
-    //   this.backend.postEmploye(this.currentUser).subscribe(data => {
-    //     console.log('Posteado correctamente')
-    //   })
-
-    //   this.isSuccess = true
+      this.isSuccess = true
 
   }
 
