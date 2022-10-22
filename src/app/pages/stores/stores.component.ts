@@ -13,6 +13,7 @@ export class StoresComponent implements OnInit {
 
   // lista productos
   stores = [];
+  tempStore = {}
 
   newPhone = '';
   newManager = '';
@@ -31,12 +32,35 @@ export class StoresComponent implements OnInit {
   }
 
   handleSave() {
-    console.log('save')
+    
+    let listData = ['telefono', 'gerente_id']
+    let dataToUpdate = [this.newPhone, this.newManager]
+
+    let con = 0;
+
+    dataToUpdate.forEach(element => {
+      if (!(element === null || element === '')) {
+        this.tempStore[listData[con]] = element
+      }
+      con++;
+    });
+
+    this.backend.putStore(this.tempStore).subscribe(data => {
+      console.log('Posteado correctamente')
+    })
+
   }
 
-  handleEdit() {
+  handleEdit(id:any) {
+    this.tempStore = this.stores.find(e => e['suc_id'] === id)
     $("#myModal").modal("show");
     $(".modal-title").text("New Cost");
+  }
+
+  handleDelete(id: number) {
+    this.backend.deleteStore(id).subscribe(data => {
+      console.log('Eliminado correctamente')
+    })
   }
 
 

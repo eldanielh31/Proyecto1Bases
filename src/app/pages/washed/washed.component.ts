@@ -13,6 +13,7 @@ export class WashedComponent implements OnInit {
 
   // lista productos
   wash = [];
+  tempWash = {};
   newCost = ''
   newPrice = ''
   newDuration = ''
@@ -35,13 +36,36 @@ export class WashedComponent implements OnInit {
 
   //funcion para actualizar
   handleSave() {
-    console.log('save')
+    
+    let listData = ['costo', 'duracion', 'puntos_redimir', 'puntos_otorga', 'precio']
+    let dataToUpdate = [this.newCost, this.newDuration, this.newExchange, this.newPoints, this.newPrice]
+
+    let con = 0;
+
+    dataToUpdate.forEach(element => {
+      if (!(element === null || element === '')) {
+        this.tempWash[listData[con]] = element
+      }
+      con++;
+    });
+
+    this.backend.putWash(this.tempWash).subscribe(data => {
+      console.log('Posteado correctamente')
+    })
+
   }
 
   //funcion para abrir el modal
-  handleEdit() {
+  handleEdit(id:any) {
+    this.tempWash = this.wash.find(e => e['lavado_id'] === id)
     $("#myModal").modal("show");
     $(".modal-title").text("New Cost");
+  }
+
+  handleDelete(id: number) {
+    this.backend.deleteWash(id).subscribe(data => {
+      console.log('Eliminado correctamente')
+    })
   }
 
 }

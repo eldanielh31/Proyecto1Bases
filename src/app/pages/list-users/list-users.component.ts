@@ -54,4 +54,16 @@ export class ListUsersComponent implements OnInit {
     this.router.navigate([`/user/${id}/client`])
   }
 
+  handleDeleteEmploye(id: number){
+    this.backend.deleteEmploye(id).subscribe(data => {
+      console.log('Eliminado correctamente')
+    })
+  }
+  
+  handleDeleteClient(cedula: number){
+    this.backend.deleteClient(cedula).subscribe(data => {
+      console.log('Eliminado correctamente')
+    })
+  }
+
 }

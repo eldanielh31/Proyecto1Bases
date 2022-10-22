@@ -23,6 +23,7 @@
                                 <th scope="col">Cost</th>
                                 <th scope="col">Provider ID</th>
                                 <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,7 +42,11 @@
                                     {{product.proveedor_id}}
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-info" (click)="handleEdit()"> Editar
+                                    <button type="button" class="btn btn-info" (click)="handleEdit(product.nombre)"> Editar
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" (click)="handleDelete(product.nombre)"> Eliminar
                                     </button>
                                 </td>
                             </tr>
@@ -72,7 +77,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">₡</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                    <input [(ngModel)]="cost" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
                     <div class="input-group-append">
                         <span class="input-group-text">.00</span>
                     </div>

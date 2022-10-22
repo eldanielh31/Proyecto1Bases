@@ -26,6 +26,7 @@
                                 <th scope="col">Points</th>
                                 <th scope="col">Exchange</th>
                                 <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,7 +54,11 @@
                                     {{w.puntos_redimir}}
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-info" (click)="handleEdit()"> Editar
+                                    <button type="button" class="btn btn-info" (click)="handleEdit(w.lavado_id)"> Editar
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" (click)="handleDelete(w.lavado_id)"> Delete
                                     </button>
                                 </td>
                             </tr>

@@ -11,6 +11,33 @@ export class BackendService {
   constructor(private httpClient: HttpClient) {
   }
 
+  public putWash(product: any) {
+    return this.httpClient.put(`${this.url}lavados`, product)
+  }
+  public putStore(product: any) {
+    return this.httpClient.put(`${this.url}sucursales`, product)
+  }
+  public putProvider(product: any) {
+    return this.httpClient.put(`${this.url}proveedores`, product)
+  }
+  public putProduct(product: any){
+    return this.httpClient.put(`${this.url}productos`, product)
+  }
+  public deleteProduct(nombre: any) {
+    return this.httpClient.delete(`${this.url}productos/${nombre}`)
+  }
+  public deleteProvider(id: any) {
+    return this.httpClient.delete(`${this.url}proveedores/${id}`)
+  }
+  public deleteWash(id: any) {
+    return this.httpClient.delete(`${this.url}lavados/${id}`)
+  }
+  public deleteStore(id:any){
+    return this.httpClient.delete(`${this.url}sucursales/${id}`)
+  }
+  public putClient(user: any) {
+    return this.httpClient.put(`${this.url}clientes`, user)
+  }
   public postAppoiment(appoinment:any){
     return this.httpClient.post(`${this.url}citas`, appoinment)
   }
@@ -57,7 +84,7 @@ export class BackendService {
   }
 
   public deleteEmploye( id : number ){
-    return this.httpClient.delete(`${this.url}trabajadores/id/${id}`)
+    return this.httpClient.delete(`${this.url}trabajadores/${id}`)
   }
 
   public postEmploye( user: Object ){
@@ -65,7 +92,7 @@ export class BackendService {
   }
 
   public deleteClient(id: number) {
-    return this.httpClient.delete(`${this.url}clientes/id/${id}`)
+    return this.httpClient.delete(`${this.url}clientes/${id}`)
   }
 
   public postClient(user: Object) {

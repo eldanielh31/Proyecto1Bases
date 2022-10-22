@@ -26,6 +26,7 @@
                                 <th scope="col">Phone</th>
                                 <th scope="col">Manager ID</th>
                                 <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,7 +54,11 @@
                                     {{store.gerente_id}}
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-info" (click)="handleEdit()"> Editar
+                                    <button type="button" class="btn btn-info" (click)="handleEdit(store.suc_id)"> Editar
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" (click)="handleDelete(store.suc_id)"> Delete
                                     </button>
                                 </td>
                             </tr>

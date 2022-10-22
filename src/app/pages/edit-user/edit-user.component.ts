@@ -14,16 +14,11 @@ export class EditUserComponent implements OnInit {
 
   currentUser: Object = {};
   isWorker: Boolean;
-  identification: String = null;
-  password: String = null;
-  firstName: String = null;
-  lastName: String = null;
-  dateEntered: String = null;
-  dateBirth: String = null;
-  role: String = null;
-  address: String = null;
-  phone: String = null;
-  email: String = null;
+  name: String = '';
+  password: String = '';
+  firstName: String = '';
+  lastName: String = '';
+  email: String = '';
 
   users: []
   clients: []
@@ -41,48 +36,51 @@ export class EditUserComponent implements OnInit {
     let userId = Number(routeParams.get('userId'));
     let userType = String(routeParams.get('userType'));
 
-    if(userType === 'employee'){
-      this.currentUser = this.users.find(user=> user['cedula'] == userId)
-    }else{
+    if (userType === 'employee') {
+      this.currentUser = this.users.find(user => user['cedula'] == userId)
+      this.isWorker = true
+    } else {
       this.currentUser = this.clients.find(user => user['cedula'] == userId)
+      this.isWorker = false
     }
-
-    console.log(this.currentUser)
 
   }
 
   handleUpdate() {
-    console.log('hola')
 
-  //   let listData = ['identification', 'password', 'name', 'lastName',
-  //     'birthDate', 'dateEntered', 'role', 'address', 'cellphoneNumber', 'email']
-  //   let dataToUpdate = [this.identification, this.password, this.firstName, this.lastName,
-  //   this.dateBirth, this.dateEntered, this.role, this.address, this.phone, this.email]
+    let listDataClient = ['cliente_nombre', 'email', 'psw_cliente']
+    let listData = ['nombre', 'apellido1', 'apellido2', 'email', 'password_trab']
+    let dataToUpdate = [this.name, this.firstName, this.lastName, this.email, this.password]
+    let dataToUpdateClient = [`${this.name} ${this.firstName} ${this.lastName}`, this.email, this.password]
 
-  //   let con = 0;
-  //   dataToUpdate.forEach(element => {
-  //     if (element !== null) {
-  //       this.currentUser[listData[con]] = element
-  //     }
-  //     else if (element !== null && element !== '') {
-  //       this.currentUser[listData[con]] = element
-  //     }
-  //     con++;
-  //   });
+    let con = 0;
+    if (this.isWorker) {
+      dataToUpdate.forEach(element => {
+        if (!(element === null || element === '')) {
+          this.currentUser[listData[con]] = element
+        }
+        con++;
+      });
 
-  //   this.localStorage.saveData('user', JSON.stringify(this.currentUser))
+      this.backend.putEmploye(this.currentUser).subscribe(data => {
+        console.log('Posteado correctamente')
+      })
 
+    } else {
+      dataToUpdateClient.forEach(element => {
+        if (!(element === null || element.trim() === '')) {
+          this.currentUser[listDataClient[con]] = element
+        }
+        con++;
+      });
 
-  //   delete this.currentUser['admin']
-  //   console.log(this.currentUser)
-  //   this.backend.deleteEmploye(this.currentUser['idNumber']).subscribe(data => {
-  //     console.log('eliminado correctamente')
-  //   })
-  //   this.backend.postEmploye(this.currentUser).subscribe(data => {
-  //     console.log('Posteado correctamente')
-  //   })
+      this.backend.putClient(this.currentUser).subscribe(data => {
+        console.log('Posteado correctamente')
+      })
 
-  //   this.isSuccess = true
+    }
+
+    this.isSuccess = true
 
   }
 

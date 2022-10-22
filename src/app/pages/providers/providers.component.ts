@@ -13,6 +13,7 @@ export class ProvidersComponent implements OnInit {
 
   // lista productos
   providers = [];
+  tempProvider = {}
 
   newEmail = ''
   newContactName = ''
@@ -32,12 +33,34 @@ export class ProvidersComponent implements OnInit {
   }
 
   handleSave() {
-    console.log(this.newEmail, this.newContactPhone, this.newContactName)
+    let listData = ['email', 'contacto_nombre', 'contacto_numero']
+    let dataToUpdate = [this.newEmail, this.newContactPhone, this.newContactName]
+
+    let con = 0;
+
+    dataToUpdate.forEach(element => {
+      if (!(element === null || element === '')) {
+        this.tempProvider[listData[con]] = element
+      }
+      con++;
+    });
+
+    this.backend.putProvider(this.tempProvider).subscribe(data => {
+      console.log('Posteado correctamente')
+    })
+
   }
 
-  handleEdit() {
+  handleEdit(id:any) {
+    this.tempProvider = this.providers.find(e => e['proveedor_id'] === id)
     $("#myModal").modal("show");
     $(".modal-title").text("New Cost");
+  }
+
+  handleDelete(id: number) {
+    this.backend.deleteProvider(id).subscribe(data => {
+      console.log('Eliminado correctamente')
+    })
   }
 
 }

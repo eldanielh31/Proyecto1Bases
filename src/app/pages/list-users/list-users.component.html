@@ -21,6 +21,7 @@
                                 <th scope="col">Identification</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -32,7 +33,11 @@
                                     {{user.nombre}} {{user.apellido1}}
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-info" (click)="handleEdit(user.cedula)" > Editar </button>
+                                    <button type="button" class="btn btn-info" (click)="handleEdit(user.cedula)"> Editar
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" (click)="handleDeleteEmploye(user.trabajador_id)">Delete</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -43,39 +48,44 @@
         </div>
 
 
-<div class="col">
-    <div class="card shadow">
-        <div class="card-header border-0">
-            <h3 class="mb-0">List clients</h3>
-        </div>
-        <div class="table-responsive">
-            <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                    <tr>
-                        <th scope="col">Identification</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Edit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let user of clients">
-                        <td>
-                            {{user.cedula}}
-                        </td>
-                        <td>
-                            {{user.cliente_nombre}} {{user.apellido1}}
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-info" (click)="handleEditClient(user.cedula)"> Editar
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">List clients</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Identification</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of clients">
+                                <td>
+                                    {{user.cedula}}
+                                </td>
+                                <td>
+                                    {{user.cliente_nombre}}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-info" (click)="handleEditClient(user.cedula)">
+                                        Editar
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" (click)="handleDeleteClient(user.cedula)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-    </div>
-</div>
+            </div>
+        </div>
 
 
     </div>
